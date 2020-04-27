@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block head %} {{ super() }} {% endblock %}
+
+{% block body %} {{ super() }} {% endblock %}
+
+{% block content %} {{ super() }}
+<div class="card">
+  <div class="card-header p-3 font-weight-bold">
+    Flight Details
+  </div>
+  <div class="card-body">
+    <div class="container border border-dark">
+        <div class="row border border-dark p-3 bg-secondary text-black">
+            <div class="col-3">
+                SOURCE
+            </div>
+            <div class="col-3">
+                DESTINATION
+            </div>
+            <div class="col-3">
+                DURATION
+            </div>
+            <div class="col-3">
+
+            </div>
+        </div>
+    {% if flight %}
+      <div class="row">
+        <div class="col-3 border border-dark">
+          {{ flight.source }}
+        </div>
+        <div class="col-3 border border-dark">
+          {{ flight.destination }}
+        </div>
+        <div class="col-3 border border-dark">
+          {{ flight.duration }}
+        </div>
+        <div class="col-3 border border-dark">
+            <a href="{{ '/book/1' }}">Book</a>
+        </div>
+      </div>
+    {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block footer %} {{ super() }} {% endblock %}

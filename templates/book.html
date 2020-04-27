@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block head %} {{ super() }} {% endblock %}
+
+{% block body %} {{ super() }} {% endblock %}
+
+{% block content %} {{ super() }}
+<div class="card">
+  <div class="card-header p-3 font-weight-bold">
+    Book
+  </div>
+  <div class="card-body">
+    <div class="container">
+    {% if flights %}
+      <form>
+          <div class="form-group">
+            <input placeholder="Select a flight" list="flight_id" value="{{ selected_flight }}" class="col-sm-6 custom-select custom-select-sm">
+            <datalist id="flight_id" name="flight_id">
+                {% for flight in flights %}
+                {{ flight }}
+                <option value="{{ flight.source }} - {{ flight.destination }}"></option>
+                {% endfor %}
+            </datalist>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control col-sm-6" name="user" id="user" placeholder="Customer Name">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block footer %} {{ super() }} {% endblock %}

@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block head %} {{ super() }} {% endblock %}
+
+{% block body %} {{ super() }} {% endblock %}
+
+{% block content %} {{ super() }}
+<div class="card">
+  <div class="card-header p-3 font-weight-bold">
+    Flights Details
+  </div>
+  <div class="card-body">
+    <div class="container border border-dark">
+        <div class="row border border-dark p-3 bg-secondary text-black">
+            <div class="col-4">
+                SOURCE
+            </div>
+            <div class="col-4">
+                DESTINATION
+            </div>
+            <div class="col-4">
+                DURATION
+            </div>
+        </div>
+    {% for flight in flights %}
+      <div class="row">
+        <div class="col-4 border border-dark">
+            <a href="{{ '/flight/%s'%flight.id|urlencode }}">{{ flight.source }}</a>
+        </div>
+        <div class="col-4 border border-dark">
+          {{ flight.destination }}
+        </div>
+        <div class="col-4 border border-dark">
+          {{ flight.duration }}
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block footer %} {{ super() }} {% endblock %}
