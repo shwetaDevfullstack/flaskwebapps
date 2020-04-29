@@ -10,6 +10,11 @@ class Flight(db.Model):
     destination = db.Column(db.String, nullable=False)
     duration = db.Column(db.Integer, nullable=False)
 
+    def add_passenger(self, name):
+        p = Passenger(name=name, flight_id=self.id)
+        db.session.add(p)
+        db.session.commit()
+
 
 class Passenger(db.Model):
     __tablename__ = 'passengers'

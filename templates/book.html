@@ -11,9 +11,9 @@
   <div class="card-body">
     <div class="container">
     {% if flights %}
-      <form>
+      <form method="post" action="/book">
           <div class="form-group">
-            <input placeholder="Select a flight" list="flight_id" value="{{ selected_flight }}" class="col-sm-6 custom-select custom-select-sm">
+            <input placeholder="Select a flight" list="flight_id" value="{{ selected_flight.origin+' - '+selected_flight.destination }}" class="col-sm-6 custom-select custom-select-sm">
             <datalist id="flight_id" name="flight_id">
                 {% for flight in flights %}
                 {{ flight }}
@@ -21,8 +21,9 @@
                 {% endfor %}
             </datalist>
           </div>
+          <input type="hidden" class="form-control col-sm-6" name="flt_id" id="flt_id" value="{{ selected_flight.id }}" placeholder="Customer Name">
           <div class="form-group">
-            <input type="text" class="form-control col-sm-6" name="user" id="user" placeholder="Customer Name">
+            <input type="text" class="form-control col-sm-6" name="name" id="name" placeholder="Customer Name">
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
       </form>

@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request, redirect, url_for
 from models import *
 
 
@@ -7,16 +7,23 @@ def route(app):
     def index(user='shweta'):
         return render_template('index.html', name=user)
 
+    @app.route('/success')
+    def success():
+        return render_template('success.html', message='Flight Booked Successfully!!!')
+
     @app.route('/flights')
     def flights():
+        """List All Flights"""
+
         flight_data = Flight.query.all()
         return render_template('flights.html', flights=flight_data)
 
     @app.route('/flight/<int:flight_id>')
     def flight(flight_id):
+        """Get Flight Data"""
+
         if flight_id:
             flight_data = Flight.query.get(flight_id)
-            # flight_data = {'id': 1, 'source': 'New York', 'destination': 'New Delhi', 'duration': 489}
             return render_template('flight.html', flight=flight_data)
         else:
             return render_template('error.html')
@@ -33,6 +40,30 @@ def route(app):
             #                {4: {'id': 4, 'source': 'San Francisco', 'destination': 'New Delhi', 'duration': 478}}]
             # selected_flight = flight_data.pop(int(flight_id)-1)
 
-            return render_template('book.html', flights=flight_data, selected_flight=selected_flight.origin+' - '+selected_flight.destination)
+            return render_template('book.html', flights=flight_data, selected_flight=selected_flight)
         else:
             return render_template('error.html')
+
+    @app.route('/book', methods=['POST'])
+    def book_flight():
+        """Book a flight"""
+
+        # Get form information
+        name = request.form['name']
+        try:
+            flight_id = int(request.form['flt_id'])
+        except ValueError:
+            return render_template('error.html', message='Invalid flight id!')
+
+        # checking flight-id exist or not
+        flight = Flight.query.get(flight_id)
+        if flight is None:
+            return render_template('error.html', message='No such flight!')
+
+        # Add Passenger
+        flight.add_passenger(name)
+        return redirect(url_for('success'))
+        # passenger = Passenger(name, flight_id)
+        # db.session.add(passenger)
+        # db.session.commit()
+        # return render_template("success.html", message="Flight booked!")
