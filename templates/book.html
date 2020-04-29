@@ -17,7 +17,7 @@
             <datalist id="flight_id" name="flight_id">
                 {% for flight in flights %}
                 {{ flight }}
-                <option value="{{ flight.source }} - {{ flight.destination }}"></option>
+                <option value="{{ flight.origin }} - {{ flight.destination }}"></option>
                 {% endfor %}
             </datalist>
           </div>

@@ -24,7 +24,7 @@
     {% for flight in flights %}
       <div class="row">
         <div class="col-4 border border-dark">
-            <a href="{{ '/flight/%s'%flight.id|urlencode }}">{{ flight.source }}</a>
+            <a href="{{ '/flight/%s'%flight.id|urlencode }}">{{ flight.origin }}</a>
         </div>
         <div class="col-4 border border-dark">
           {{ flight.destination }}
