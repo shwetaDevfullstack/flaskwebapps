@@ -1,51 +1,33 @@
-from flask import Flask, render_template
-from operator import itemgetter
-import json
+from flask import Flask
+from models import *
+from routes import route
+
+# from operator import itemgetter
+# import json
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://varunshweta:tidh@localhost/travelport'
+
+# safely bind database handler to Flask
+#  app in a way that manages connections
+db.init_app(app)
+
+# initializing & calling routes
+route(app)
 
 
-@app.route('/')
-def index(user='shweta'):
-    return render_template('index.html', name=user)
+def main():
+    pass
+
+    # flights = Flight.query.all()
+    # for flight in flights:
+    #    print(flight)
 
 
-@app.route('/flights')
-def flights(flight_id=None):
-    flight_data = [{'id': 1, 'source': 'New York', 'destination': 'New Delhi', 'duration': 489},
-                   {'id': 2, 'source': 'Tokyo', 'destination': 'New York', 'duration': 789},
-                   {'id': 3, 'source': 'San Jose', 'destination': 'New Delhi', 'duration': 490},
-                   {'id': 4, 'source': 'San Francisco', 'destination': 'New Delhi', 'duration': 478}]
-    return render_template('flights.html', flights=flight_data)
-
-
-@app.route('/flight/<int:flight_id>')
-def flight(flight_id):
-    if flight_id:
-        flight_data = {'id': 1, 'source': 'New York', 'destination': 'New Delhi', 'duration': 489}
-        return render_template('flight.html', flight=flight_data)
-    else:
-        return render_template('error.html')
-
-
-@app.route('/book/<int:flight_id>')
-def book(flight_id):
-    if flight_id:
-        #flight_data = [{'id': 1, 'source': 'New York', 'destination': 'New Delhi', 'duration': 489},
-        #               {'id': 2, 'source': 'Tokyo', 'destination': 'New York', 'duration': 789},
-        #               {'id': 3, 'source': 'San Jose', 'destination': 'New Delhi', 'duration': 490},
-        #               {'id': 4, 'source': 'San Francisco', 'destination': 'New Delhi', 'duration': 478}]
-
-        flight_data = [{1: {'id': 1, 'source': 'New York', 'destination': 'New Delhi', 'duration': 489}},
-                       {2: {'id': 2, 'source': 'Tokyo', 'destination': 'New York', 'duration': 789}},
-                       {3: {'id': 3, 'source': 'San Jose', 'destination': 'New Delhi', 'duration': 490}},
-                       {4: {'id': 4, 'source': 'San Francisco', 'destination': 'New Delhi', 'duration': 478}}]
-
-        selected_flight = flight_data.pop(int(flight_id)-1)
-        print(selected_flight)
-        return render_template('book.html', flights=flight_data, selected_flight=selected_flight[flight_id]['source']+' - '+selected_flight[flight_id]['destination'])
-    else:
-        return render_template('error.html')
+if __name__ == "__main__":
+    # allow us to on CLI(command line) interact to flask application
+    with app.app_context():
+        main()
 
 
 
