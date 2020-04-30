@@ -29,6 +29,22 @@
       </form>
     {% endif %}
     </div>
+      {% if passengers %}
+      <div class="container-fluid p-4">
+         <div class="row border">
+             <div class="col-12 card-header">
+                Passengers
+            </div>
+            <div class="col-12">
+                <ul>
+                    {% for passenger in passengers %}
+                    <li>{{ passenger.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+         </div>
+    </div>
+      {% endif %}
   </div>
 </div>
 

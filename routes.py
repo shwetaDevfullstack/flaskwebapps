@@ -33,6 +33,8 @@ def route(app):
         if flight_id:
             flight_data = Flight.query.all()
             selected_flight = Flight.query.get(flight_id)
+            # get all passengers against that flight id
+            passengers = selected_flight.passengers
 
             # flight_data = [{1: {'id': 1, 'source': 'New York', 'destination': 'New Delhi', 'duration': 489}},
             #                {2: {'id': 2, 'source': 'Tokyo', 'destination': 'New York', 'duration': 789}},
@@ -40,7 +42,7 @@ def route(app):
             #                {4: {'id': 4, 'source': 'San Francisco', 'destination': 'New Delhi', 'duration': 478}}]
             # selected_flight = flight_data.pop(int(flight_id)-1)
 
-            return render_template('book.html', flights=flight_data, selected_flight=selected_flight)
+            return render_template('book.html', flights=flight_data, selected_flight=selected_flight, passengers=passengers)
         else:
             return render_template('error.html')
 
