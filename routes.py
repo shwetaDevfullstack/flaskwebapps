@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, jsonify
 from models import *
 
 
@@ -69,3 +69,11 @@ def route(app):
         # db.session.add(passenger)
         # db.session.commit()
         # return render_template("success.html", message="Flight booked!")
+
+    @app.route('/api/flight/<int:flight_id>')
+    def flight_api(flight_id):
+        if flight_id:
+            return jsonify({
+                "origin": 'Delhi',
+                "destination": 'Chandigarh'
+            })
