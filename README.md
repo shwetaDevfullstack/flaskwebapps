@@ -5,8 +5,8 @@ The flask command is installed by Flask, not your application; it must be told w
 
 
 Unix Bash (Linux, Mac, etc.):
-$ export FLASK_APP=application
-$ flask run
+> $ export FLASK_APP=application
+> $ flask run
 
 Windows CMD:
 > set FLASK_APP=application
