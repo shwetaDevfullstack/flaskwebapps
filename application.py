@@ -19,10 +19,6 @@ route(app)
 def main():
     pass
 
-    # flights = Flight.query.all()
-    # for flight in flights:
-    #    print(flight)
-
 
 if __name__ == "__main__":
     # allow us to on CLI(command line) interact to flask application

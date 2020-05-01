@@ -36,12 +36,6 @@ def route(app):
             # get all passengers against that flight id
             passengers = selected_flight.passengers
 
-            # flight_data = [{1: {'id': 1, 'source': 'New York', 'destination': 'New Delhi', 'duration': 489}},
-            #                {2: {'id': 2, 'source': 'Tokyo', 'destination': 'New York', 'duration': 789}},
-            #                {3: {'id': 3, 'source': 'San Jose', 'destination': 'New Delhi', 'duration': 490}},
-            #                {4: {'id': 4, 'source': 'San Francisco', 'destination': 'New Delhi', 'duration': 478}}]
-            # selected_flight = flight_data.pop(int(flight_id)-1)
-
             return render_template('book.html', flights=flight_data, selected_flight=selected_flight, passengers=passengers)
         else:
             return render_template('error.html')
@@ -73,7 +67,14 @@ def route(app):
     @app.route('/api/flight/<int:flight_id>')
     def flight_api(flight_id):
         if flight_id:
+            flight = Flight.query.get(flight_id)
+            if flight is None:
+                return jsonify({'error': 'No such flight!!!'})
+
             return jsonify({
-                "origin": 'Delhi',
-                "destination": 'Chandigarh'
+                "origin": flight.origin,
+                "destination": flight.destination,
+                "duration": flight.duration
             })
+        else:
+            return jsonify({'error': 'Invalid flight id!!!'})
