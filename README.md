@@ -19,6 +19,6 @@ Flask-SQLAlchemy: An extension for Flask that adds support for SQLAlchemy to you
 
 PostgreSQL
 
-#Template
-Flask comes with the #Jinja templating system.
+# Template
+Flask comes with the # Jinja templating system.
 Jinja is a modern and designer-friendly templating language for Python
