@@ -6,7 +6,7 @@ from routes import route
 # import json
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://varunshweta:tidh@localhost/travelport'
+app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://username@localhost/dbname'
 
 # safely bind database handler to Flask
 #  app in a way that manages connections
